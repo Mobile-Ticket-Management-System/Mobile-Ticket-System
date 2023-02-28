@@ -329,7 +329,7 @@ Book Bus tickets from anywhere using the robust ticketing platform exclusively b
 
                     <div class="col-md-4">
 
-                        <p class="footer-links"><a href="#">Terms of Use</a> <a href="#">Privacy Policy copyright@2022</a></p>
+                        <p class="footer-links"><a href="#">Terms of Use</a> <a href="#">Privacy Policy copyright@2023</a></p>
 
                     </div>
 
