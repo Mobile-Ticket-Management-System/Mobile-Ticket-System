@@ -329,7 +329,7 @@ function genCode($id, $user, $class)
 function login($username, $password)
 {
     $password = md5($password);
-    $q = connect()->query("SELECT * FROM passenger WHERE email = '$username' AND password = '$password' AND status = '1' ")->num_rows;
+    $q = connect()->query("SELECT * FROM customers WHERE email = '$username' AND password = '$password' AND status = '1' ")->num_rows;
     if ($q == 1) return 1;
     return 0;
 }
@@ -344,7 +344,7 @@ function adminLogin($username, $password)
 function getIndividualName($id, $conn = null)
 {
     $conn = connect();
-    $q = $conn->query("SELECT * FROM passenger WHERE id = '$id'")->fetch_assoc();
+    $q = $conn->query("SELECT * FROM customers WHERE id = '$id'")->fetch_assoc();
     return $q['name'];
 }
 
@@ -373,7 +373,7 @@ function genRand()
 
 function getImage($id, $conn)
 {
-    $row = $conn->query("SELECT loc FROM passenger WHERE id = '$id'")->fetch_assoc();
+    $row = $conn->query("SELECT loc FROM customers WHERE id = '$id'")->fetch_assoc();
     if (strlen($row['loc']) < 10) return "images/trainlg.png";
     else return "uploads/" . $row['loc'];
 }
@@ -498,10 +498,10 @@ function printClearance($id)
     ob_start();
     $con = connect();
     $me = $_SESSION['user_id'];
-    $getCount = (connect()->query("SELECT schedule.id as schedule_id, passenger.name as fullname, passenger.email as email, passenger.phone as phone, passenger.loc as loc, payment.amount as amount, payment.ref as ref, payment.date as payment_date, schedule.bus_id as bus_id, booked.code as code, booked.no as no, booked.class as class, booked.seat as seat, schedule.date as date, schedule.time as time FROM booked INNER JOIN schedule on booked.schedule_id = schedule.id INNER JOIN payment ON payment.id = booked.payment_id INNER JOIN passenger ON passenger.id = booked.user_id WHERE booked.id = '$id'"));
+    $getCount = (connect()->query("SELECT schedule.id as schedule_id, customers.name as fullname, customers.email as email, customers.phone as phone, customers.loc as loc, payment.amount as amount, payment.ref as ref, payment.date as payment_date, schedule.bus_id as bus_id, booked.code as code, booked.no as no, booked.class as class, booked.seat as seat, schedule.date as date, schedule.time as time FROM booked INNER JOIN schedule on booked.schedule_id = schedule.id INNER JOIN payment ON payment.id = booked.payment_id INNER JOIN customers ON customers.id = booked.user_id WHERE booked.id = '$id'"));
     if ($getCount->num_rows != 1) die("Denied");
     $row = $getCount->fetch_assoc();
-    $passenger_name = substr($fullname = ($row['fullname']), 0, 15);
+    $customers_name = substr($fullname = ($row['fullname']), 0, 15);
     $name = $fullname;
     $phone = $row['phone'];
     $email = $row['email'];
@@ -520,7 +520,7 @@ function printClearance($id)
     $class = $row['class'];
     $payment_date = $row['payment_date'];
     $amount = $row['amount'];
-    $file_name = preg_replace('/[^a-z0-9]+/', '-', strtolower($passenger_name)) . ".pdf";
+    $file_name = preg_replace('/[^a-z0-9]+/', '-', strtolower($customers_name)) . ".pdf";
     require_once 'PDF/tcpdf_config_alt.php';
 
     // Include the main TCPDF library (search the library on the following directories).

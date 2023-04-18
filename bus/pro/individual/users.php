@@ -10,7 +10,7 @@ if (isset($_GET['status'], $_GET['id'])) {
     } else {
         $status = 1;
     }
-    $conn = connect()->query("UPDATE passenger SET status = '$status' WHERE id = '$id'");
+    $conn = connect()->query("UPDATE customers SET status = '$status' WHERE id = '$id'");
     echo "<script>alert('Action completed!');window.location='admin.php$me';</script>";
 }
 ?>
