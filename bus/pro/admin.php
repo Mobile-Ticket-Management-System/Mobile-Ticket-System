@@ -117,12 +117,12 @@ $fullname =  "System Administrator";
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="admin.php?page=route" class="nav-link      <?php
-                                                                                echo (@$_GET['page'] == 'route') ? 'active' : '';
+                            <a href="admin.php?page=eventname" class="nav-link      <?php
+                                                                                echo (@$_GET['page'] == 'eventname') ? 'active' : '';
                                                                                 ?>">
                                 <i class="nav-icon fas fa-route"></i>
                                 <p>
-                                    Routes
+                                    Eventnames
                                 </p>
                             </a>
                         </li>
@@ -222,8 +222,8 @@ $fullname =  "System Administrator";
                 include 'admin/bus.php';
             elseif ($_GET['page'] == 'users')
                 include 'admin/users.php';
-            elseif ($_GET['page'] == 'route')
-                include 'admin/route.php';
+            elseif ($_GET['page'] == 'eventname')
+                include 'admin/event_name.php';
             elseif ($_GET['page'] == 'logout') {
                 @session_destroy();
                 echo "<script>alert('You are being logged out'); window.location='../';</script>";

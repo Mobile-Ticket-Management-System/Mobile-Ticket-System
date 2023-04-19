@@ -10,7 +10,7 @@ if (isset($_GET['status'], $_GET['id'])) {
     } else {
         $status = 1;
     }
-    $conn = connect()->query("UPDATE passenger SET status = '$status' WHERE id = '$id'");
+    $conn = connect()->query("UPDATE customers SET status = '$status' WHERE id = '$id'");
     echo "<script>alert('Action completed!');window.location='admin.php$me';</script>";
 }
 ?>
@@ -45,7 +45,7 @@ if (isset($_GET['status'], $_GET['id'])) {
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $row = connect()->query("SELECT * FROM passenger ORDER BY id DESC");
+                                        $row = connect()->query("SELECT * FROM customers ORDER BY id DESC");
                                         if ($row->num_rows < 1) echo "No Records Yet";
                                         $sn = 0;
                                         while ($fetch = $row->fetch_assoc()) {
@@ -125,12 +125,12 @@ if (isset($_GET['status'], $_GET['id'])) {
 
                         </div>
                         <div class="col-sm-6">
-                            Route : <select class="form-control" name="route_id" required id="">
-                                <option value="">Select Route</option>
+                            Event Name : <select class="form-control" name="eventname_id" required id="">
+                                <option value="">Select Event name</option>
                                 <?php
-                                $con = connect()->query("SELECT * FROM route");
+                                $con = connect()->query("SELECT * FROM eventname");
                                 while ($row = $con->fetch_assoc()) {
-                                    echo "<option value='" . $row['id'] . "'>" . getRoutePath($row['id']) . "</option>";
+                                    echo "<option value='" . $row['id'] . "'>" . getEventName($row['id']) . "</option>";
                                 }
                                 ?>
                             </select>
@@ -210,12 +210,12 @@ if (isset($_GET['status'], $_GET['id'])) {
 
                         </div>
                         <div class="col-sm-6">
-                            Route : <select class="form-control" name="route_id" required id="">
-                                <option value="">Select Route</option>
+                            Event Name : <select class="form-control" name="eventname_id" required id="">
+                                <option value="">Select eventname</option>
                                 <?php
-                                $con = connect()->query("SELECT * FROM route");
+                                $con = connect()->query("SELECT * FROM eventname");
                                 while ($row = $con->fetch_assoc()) {
-                                    echo "<option value='" . $row['id'] . "'>" . getRoutePath($row['id']) . "</option>";
+                                    echo "<option value='" . $row['id'] . "'>" . getEventName($row['id']) . "</option>";
                                 }
                                 ?>
                             </select>
@@ -285,7 +285,7 @@ if (isset($_GET['status'], $_GET['id'])) {
 <?php
 
 if (isset($_POST['submit'])) {
-    $route_id = $_POST['route_id'];
+    $eventname_id = $_POST['eventname_id'];
     $train_id = $_POST['train_id'];
     $first_fee = $_POST['first_fee'];
     $second_fee = $_POST['second_fee'];
@@ -294,12 +294,12 @@ if (isset($_POST['submit'])) {
     // die($date);
     // $endDate = date('Y-m-d' ,strtotime( $data['automatic_until'] ));
     $time = $_POST['time'];
-    if (!isset($route_id, $train_id, $first_fee, $second_fee, $date, $time)) {
-        alert("Fill Form Properly!");
+    if (!isset($eventname_id, $train_id, $first_fee, $second_fee, $date, $time)) {
+        alert("Please Fill the Form Properly!");
     } else {
         $conn = connect();
-        $ins = $conn->prepare("INSERT INTO `schedule`(`train_id`, `route_id`, `date`, `time`, `first_fee`, `second_fee`) VALUES (?,?,?,?,?,?)");
-        $ins->bind_param("iissii", $train_id, $route_id, $date, $time, $first_fee, $second_fee);
+        $ins = $conn->prepare("INSERT INTO `schedule`(`train_id`, `eventname_id`, `date`, `time`, `first_fee`, `second_fee`) VALUES (?,?,?,?,?,?)");
+        $ins->bind_param("iissii", $train_id, $eventname_id, $date, $time, $first_fee, $second_fee);
         $ins->execute();
         alert("Schedule Added!");
         load($_SERVER['PHP_SELF'] . "$me");
@@ -308,7 +308,7 @@ if (isset($_POST['submit'])) {
 
 
 if (isset($_POST['submit2'])) {
-    $route_id = $_POST['route_id'];
+    $eventname_id = $_POST['eventname_id'];
     $train_id = $_POST['train_id'];
     $first_fee = $_POST['first_fee'];
     $second_fee = $_POST['second_fee'];
@@ -317,7 +317,7 @@ if (isset($_POST['submit2'])) {
     $every = $_POST['every'];
 
     $time = $_POST['time'];
-    if (!isset($route_id, $train_id, $first_fee, $second_fee, $date, $time)) {
+    if (!isset($eventname_id, $train_id, $first_fee, $second_fee, $date, $time)) {
         alert("Fill Form Properly!");
     } else {
 
@@ -330,16 +330,16 @@ if (isset($_POST['submit2'])) {
         if ($every == 'Day') {
             for ($i = strtotime($startDate); $i <= strtotime($endDate); $i = strtotime('+1 day', $i)) {
                 $date = date('d-m-Y', $i);
-                $ins = $conn->prepare("INSERT INTO `schedule`(`train_id`, `route_id`, `date`, `time`, `first_fee`, `second_fee`) VALUES (?,?,?,?,?,?)");
-                $ins->bind_param("iissii", $train_id, $route_id, $date, $time, $first_fee, $second_fee);
+                $ins = $conn->prepare("INSERT INTO `schedule`(`train_id`, `eventname_id`, `date`, `time`, `first_fee`, `second_fee`) VALUES (?,?,?,?,?,?)");
+                $ins->bind_param("iissii", $train_id, $eventname_id, $date, $time, $first_fee, $second_fee);
                 $ins->execute();
             }
         } else {
             for ($i = strtotime($every, strtotime($startDate)); $i <= strtotime($endDate); $i = strtotime('+1 week', $i)) {
                 $date = date('d-m-Y', $i);
 
-                $ins = $conn->prepare("INSERT INTO `schedule`(`train_id`, `route_id`, `date`, `time`, `first_fee`, `second_fee`) VALUES (?,?,?,?,?,?)");
-                $ins->bind_param("iissii", $train_id, $route_id, $date, $time, $first_fee, $second_fee);
+                $ins = $conn->prepare("INSERT INTO `schedule`(`train_id`, `eventname_id`, `date`, `time`, `first_fee`, `second_fee`) VALUES (?,?,?,?,?,?)");
+                $ins->bind_param("iissii", $train_id, $eventname_id, $date, $time, $first_fee, $second_fee);
                 $ins->execute();
             }
         }
@@ -352,19 +352,19 @@ if (isset($_POST['submit2'])) {
 
 
 if (isset($_POST['edit'])) {
-    $route_id = $_POST['route_id'];
+    $eventname_id = $_POST['eventname_id'];
     $train_id = $_POST['train_id'];
     $first_fee = $_POST['first_fee'];
     $second_fee = $_POST['second_fee'];
     $date = $_POST['date'];
     $time = $_POST['time'];
     $id = $_POST['id'];
-    if (!isset($route_id, $train_id, $first_fee, $second_fee, $date, $time)) {
-        alert("Fill Form Properly!");
+    if (!isset($eventname_id, $train_id, $first_fee, $second_fee, $date, $time)) {
+        alert("Ensure You Have Filled The Form Properly!");
     } else {
         $conn = connect();
-        $ins = $conn->prepare("UPDATE `schedule` SET `train_id`=?,`route_id`=?,`date`=?,`time`=?,`first_fee`=?,`second_fee`=? WHERE id = ?");
-        $ins->bind_param("iissiii", $train_id, $route_id, $date, $time, $first_fee, $second_fee, $id);
+        $ins = $conn->prepare("UPDATE `schedule` SET `train_id`=?,`eventname_id`=?,`date`=?,`time`=?,`first_fee`=?,`second_fee`=? WHERE id = ?");
+        $ins->bind_param("iissiii", $train_id, $eventname_id, $date, $time, $first_fee, $second_fee, $id);
         $ins->execute();
         alert("Schedule Modified!");
         load($_SERVER['PHP_SELF'] . "$me");
@@ -375,7 +375,7 @@ if (isset($_POST['del_train'])) {
     $con = connect();
     $conn = $con->query("DELETE FROM schedule WHERE id = '" . $_POST['del_train'] . "'");
     if ($con->affected_rows < 1) {
-        alert("Schedule Could Not Be Deleted. This Route Has Been Tied To Another Data!");
+        alert("Schedule Could Not Be Deleted. This Event Has Been Tied To Another Data!");
         load($_SERVER['PHP_SELF'] . "$me");
     } else {
         alert("Schedule Deleted!");

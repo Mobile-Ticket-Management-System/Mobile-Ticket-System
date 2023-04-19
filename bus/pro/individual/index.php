@@ -52,8 +52,8 @@ if (!isset($file_access)) die("Direct File Access Denied");
                 <span class="info-box-icon"><i class="fa fa-route"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Routes</span>
-                    <span class="info-box-number"><?php echo connect()->query("SELECT * FROM route")->num_rows ?></span>
+                    <span class="info-box-text">Available events</span>
+                    <span class="info-box-number"><?php echo connect()->query("SELECT * FROM eventname")->num_rows ?></span>
 
                     <div class="progress"><div></div>
                         <div class="progress-bar" style="width: 50%"></div>
@@ -113,7 +113,7 @@ if (!isset($file_access)) die("Direct File Access Denied");
                             <div class="callout callout-info">
                                 <h5><i class="fas fa-info"></i> <?php echo ucwords($class), " Class" ?>:</h5>
                                 You are about to book
-                                <?php echo $number, " Ticket", $number > 1 ? 's' : '', ' for ', getRouteFromSchedule($schedule_id); ?>
+                                <?php echo $number, " Ticket", $number > 1 ? 's' : '', ' for ', getEventnameFromSchedule($schedule_id); ?>
                                 <br />
 
                                 <?php

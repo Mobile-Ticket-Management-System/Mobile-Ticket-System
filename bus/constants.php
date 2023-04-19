@@ -383,9 +383,9 @@ function formatDate($date)
     return date('d-m-Y', strtotime($date));
 }
 
-function getRoutePath($id)
+function getEventName($id)
 {
-    $val = connect()->query("SELECT * FROM route WHERE id = '$id'")->fetch_assoc();
+    $val = connect()->query("SELECT * FROM eventname WHERE id = '$id'")->fetch_assoc();
     return $val['start'] . " to " . $val['stop'];
 }
 
@@ -423,10 +423,10 @@ function querySchedule($type)
     return $row;
 }
 
-function getRouteFromSchedule($id)
+function getEventnameFromSchedule($id)
 {
-    $q = connect()->query("SELECT route_id as id FROM schedule WHERE id = '$id'")->fetch_assoc();
-    return getRoutePath($q['id']);
+    $q = connect()->query("SELECT eventname_id as id FROM schedule WHERE id = '$id'")->fetch_assoc();
+    return getEventName($q['id']);
 }
 
 function getFee($id, $type = 'second')
@@ -509,10 +509,10 @@ function printClearance($id)
     $date = $row['date'];
     $time = formatTime($row['time']);
     $uniqueCode = $row['code'];
-    $route = getRouteFromSchedule($row['schedule_id']);
+    $eventname = getEventnameFromSchedule($row['schedule_id']);
     $date = date("D d, M Y", strtotime($date));
 
-    $barcode = "$fullname Ticket For $route - $date by $time. Ticket ID : $uniqueCode";
+    $barcode = "$fullname Ticket For $eventname - $date by $time. Ticket ID : $uniqueCode";
     $barcodeOutput = generateQR($id, $barcode);
     $loc = $row['loc'];
     $seat = $row['seat'];
@@ -622,7 +622,7 @@ table th{font-weight:italic}
 <tr><th><b>Email:</b></th><td>$email</td></tr>
 <tr><th><b>Contact:</b></th><td>$phone</td></tr>
 <tr><td colspan="2" style="text-align:center"><b>Trip Detail</b></td></tr>
-<tr><th><b>Route:</b></th><td>$route</td></tr>
+<tr><th><b>Route:</b></th><td>$eventname</td></tr>
 <tr><th><b>Bus:</b></th><td>$Bus</td></tr>
 <tr><th><b>Class:</b></th><td>$class Class</td></tr>
 <tr><th><b>Seat Number:</b></th><td>$seat</td></tr>
@@ -770,7 +770,7 @@ function printReport($id)
  
     </style>";
     $sn = 0;
-    $schedule = getRouteFromSchedule($id);
+    $schedule = getEventnameFromSchedule($id);
     if ($getCount->num_rows < 1) {
         echo "<script>alert('No passenger yet for this schedule!');window.location='admin.php?page=report'</script>";
         exit;
@@ -779,7 +779,7 @@ function printReport($id)
         $date = $row['date'];
         $time = $row['time'];
         $bus = getBusName($row['bus']);
-        $route = getRouteFromSchedule($id);
+        $eventname = getEventnameFromSchedule($id);
         $time = formatTime($time);
         $sn++;
         $output .= '<tr><td class="a">' . $sn . '</td><td class="c">' . substr(ucwords(strtolower($row['fullname'])), 0, 15) . '</td><td class="shrink">' . $row['code'] . ' (' . ucwords(strtolower($row['class'])) . ')</td><td class="b">' . (strtoupper($row['seat'])) . '</td></tr>';
@@ -836,9 +836,9 @@ function printReport($id)
     // set document information
     $pdf->SetCreator(PDF_CREATOR);
     $pdf->SetAuthor("Admin");
-    $pdf->SetTitle("Bus Bookings " . " Ticket");
+    $pdf->SetTitle("Event Bookings " . " Ticket");
     $pdf->SetSubject(SITE_NAME);
-    $pdf->SetKeywords("Bus Booking System, Rail, Rails, Railway, Booking, Project, System, Website, Portal ");
+    $pdf->SetKeywords("Event Booking System, Rail, Rails, Railway, Booking, Project, System, Website, Portal ");
 
 
     // set default monospaced font

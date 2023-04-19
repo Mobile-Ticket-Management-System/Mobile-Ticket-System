@@ -13,7 +13,7 @@ $me = "?page=$source"
                     <div class="card card-success">
                         <div class="card-header">
                             <h3 class="card-title">
-                                All Routes</h3>
+                                All Events</h3>
                             <div class='float-right'>
                                
                         </div>
@@ -34,7 +34,7 @@ $me = "?page=$source"
                                 <tbody>
                                     <?php
                                     $row = $conn->query("SELECT * FROM route");
-                                    if ($row->num_rows < 1) echo "No Records Yet";
+                                    if ($row->num_rows < 1) echo "No Events Yet";
                                     $sn = 0;
                                     while ($fetch = $row->fetch_assoc()) {
                                         $id = $fetch['id'];
@@ -84,7 +84,7 @@ $me = "?page=$source"
                                                         </p>
                                                         <p>
 
-                                                            <input class="btn btn-info" type="submit" value="Edit Route"
+                                                            <input class="btn btn-info" type="submit" value="Edit Event"
                                                                 name='edit'>
                                                         </p>
                                                     </form>
@@ -144,7 +144,7 @@ $me = "?page=$source"
                         <tr>
                             <td colspan="2">
 
-                                <input class="btn btn-info" type="submit" value="Add Route" name='submit'>
+                                <input class="btn btn-info" type="submit" value="Add Event" name='submit'>
                             </td>
                         </tr>
                     </table>
@@ -173,7 +173,7 @@ if (isset($_POST['submit'])) {
         $ins = $conn->prepare("INSERT INTO route (start,stop) VALUES (?,?)");
         $ins->bind_param("ss", $start, $stop);
         $ins->execute();
-        alert("Route Added!");
+        alert("Event Added!");
         load($_SERVER['PHP_SELF'] . "$me");
     }
 }
@@ -189,7 +189,7 @@ if (isset($_POST['edit'])) {
         $ins = $conn->prepare("UPDATE route SET start = ?, stop = ? WHERE id = ?");
         $ins->bind_param("ssi", $start, $stop, $id);
         $ins->execute();
-        alert("Route Modified!");
+        alert("Event Modified!");
         load($_SERVER['PHP_SELF'] . "$me");
     }
 }
@@ -198,10 +198,10 @@ if (isset($_POST['del_train'])) {
     $con = connect();
     $conn = $con->query("DELETE FROM route WHERE id = '" . $_POST['del_train'] . "'");
     if ($con->affected_rows < 1) {
-        alert("Route Could Not Be Deleted. This Route Has Been Tied To Another Data!");
+        alert("Event Could Not Be Deleted. This Event Has Been Tied To Another Data!");
         load($_SERVER['PHP_SELF'] . "$me");
     } else {
-        alert("Route Deleted!");
+        alert("Event Deleted!");
         load($_SERVER['PHP_SELF'] . "$me");
     }
 }

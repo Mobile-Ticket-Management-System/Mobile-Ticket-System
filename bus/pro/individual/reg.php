@@ -17,7 +17,7 @@ $me = $_SESSION['user_id'];
 
             <div class="card card-success">
                 <div class="card-header">
-                    <h3 class="card-title"><b>Book BUS Tickets</b></h3>
+                    <h3 class="card-title"><b>Book Event Tickets</b></h3>
                 </div>
                 <div class="card-body">
 
@@ -27,7 +27,7 @@ $me = $_SESSION['user_id'];
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Route</th>
+                                <th>Events</th>
                                 <th>Status</th>
                                 <th>Date/Time</th>
                                 <th>Actions</th>
@@ -54,7 +54,7 @@ $me = $_SESSION['user_id'];
                                 }
                                 $id = $fetch['id']; ?><tr>
                                 <td><?php echo ++$sn; ?></td>
-                                <td><?php echo $fullname =  getRoutePath($fetch['route_id']);
+                                <td><?php echo $fullname =  getEventName($fetch['eventname_id']);
                                         ?></td>
                                 <td><?php $array = getTotalBookByType($id);
                                         echo ($max_first = ($array['first'] - $array['first_booked'])), " Seat(s) Available for First Class" . "<hr/>" . ($max_second = ($array['second'] - $array['second_booked'])) . " Seat(s) Available for Second Class";

@@ -43,7 +43,7 @@ if (isset($_GET['now'])) {
                                 $conn = connect()->query("SELECT *, booked.id as id, payment.date as pd FROM `booked` INNER JOIN payment ON booked.payment_id = payment.id INNER JOIN schedule ON schedule.id = booked.schedule_id  WHERE payment.customers_id = '$user_id' ORDER BY booked.id DESC");
                                 $sn = 0;
                                 while ($row = $conn->fetch_assoc()) {
-                                    $fullname = getRouteFromSchedule($row['schedule_id']);
+                                    $fullname = getEventnameFromSchedule($row['schedule_id']);
                                     $id = $row['id'];
                                     $sn++;
                                     echo "<tr>
@@ -78,10 +78,7 @@ if (isset($_GET['now'])) {
                                                     <?php echo $row['seat'];
                                                         ?>
                                                 </p>
-                                                <p><b>Train Name :</b>
-                                                    <?php echo getTrainName($row['train_id']);
-                                                        ?>
-                                                </p>
+                                        
                                                 <p><b>Payment Date :</b>
                                                     <?php echo ($row['pd']);
                                                         ?>
@@ -116,7 +113,7 @@ if (isset($_GET['now'])) {
             continue;
         }
     }
-    $fullname =  getRoutePath($fetch['route_id']);
+    $fullname =  getEventName($fetch['eventname_id']);
     $datetime = $fetch['date']. " / ". formatTime($fetch['time']);
     $output .= "<option value='$fetch[id]'>$fullname - $datetime</option>";
                             }

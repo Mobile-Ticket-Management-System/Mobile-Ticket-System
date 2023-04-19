@@ -48,47 +48,21 @@ alert("Access Denied.");
     }
 }
 ?>
-<div class="signup-page">
+<div class="container">
     <div class="form">
-        <h2>Admin Sign In</h2>
-        <br>
+        <h2 class="signIn">Admin Sign In</h2>
+        
         <form class="login-form" method="post" role="form" id="signup-form" autocomplete="off">
-            <!-- json response will be here -->
-            <div id="errorDiv"></div>
-            <!-- json response will be here -->
+            <input type="email" required name="email" placeholder="EmailId">
 
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="text" required name="email">
-                </div>
-            </div>
-
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" name="password" id="password">
-                    <span class="help-block" id="error"></span>
-                </div>
-            </div>
-
-
-
-            <div class="col-md-12">
-                <div class="form-group">
-                    <button type="submit" id="btn-signup">
-                        SIGN IN
-                    </button>
-                </div>
-            </div>
-            <p class="message">
-                <a href="#">.</a><br>
-            </p>
+            <input type="password" name="password" id="password" placeholder="Password">
+            
+            <button type="submit" id="btn-signup" onclick="submitForm()"> SIGN IN </button> 
         </form>
     </div>
 </div>
 </div>
-<script src="assets/js/jquery-1.12.4-jquery.min.js"></script>
+<script src="assets/js/index.js"></script>
 
 </body>
 

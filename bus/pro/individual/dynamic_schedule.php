@@ -26,7 +26,7 @@ $me = "?page=$source";
                                     <tr>
                                         <th>#</th>
                                         <th>Bus</th>
-                                        <th>Route</th>
+                                        <th>Event name</th>
                                         <th>F.C Fee</th>
                                         <th>S.C Fee</th>
                                         <th>Total Bookings</th>
@@ -44,7 +44,7 @@ $me = "?page=$source";
                                         $id = $fetch['id']; ?><tr>
                                         <td><?php echo ++$sn; ?></td>
                                         <td><?php echo getBusName($fetch['bus_id']); ?></td>
-                                        <td><?php echo getRoutePath($fetch['route_id']);
+                                        <td><?php echo getEventName($fetch['eventname_id']);
                                                 $fullname = " Schedule" ?></td>
                                         <td>kes <?php echo ($fetch['first_fee']); ?></td>
                                         <td>kes<?php echo ($fetch['second_fee']); ?></td>
@@ -90,13 +90,13 @@ $me = "?page=$source";
                                                             </select>
                                                         </p>
 
-                                                        <p>Route : <select class="form-control" name="route_id" required
+                                                        <p>Route : <select class="form-control" name="eventname_id" required
                                                                 id="">
-                                                                <option value="">Select Route</option>
+                                                                <option value="">Select event by name</option>
                                                                 <?php
-                                                                    $cond = connect()->query("SELECT * FROM route");
+                                                                    $cond = connect()->query("SELECT * FROM eventname");
                                                                     while ($r = $cond->fetch_assoc()) {
-                                                                        echo "<option  " . ($fetch['route_id'] == $r['id'] ? 'selected="selected"' : '') . " value='" . $r['id'] . "'>" . getRoutePath($r['id']) . "</option>";
+                                                                        echo "<option  " . ($fetch['evetname_id'] == $r['id'] ? 'selected="selected"' : '') . " value='" . $r['id'] . "'>" . getEventName($r['id']) . "</option>";
                                                                     }
                                                                     ?>
                                                             </select>

@@ -21,7 +21,7 @@ $source = 'payment';
                         <table id='example1' class="table table-striped table-bordered table-hover table-valign-middle">
                             <thead>
                                 <tr>
-                                    <th>Route</th>
+                                    <th>Event Name</th>
                                     <th>Date</th>
                                     <th>First Class</th>
                                     <th>Second Class</th>
@@ -39,7 +39,7 @@ $source = 'payment';
                                     // echo (($array['first'] - $array['first_booked'])), " Seat(s) Available for First Class" . "<hr/>" . ($array['second'] - $array['second_booked']) . " Seat(s) Available for Second Class";
                                     $sn++;
                                     echo "<tr>
-                                      <td>" . getRoutePath($val['route_id']) . "</td>
+                                      <td>" . getEventName($val['eventname_id']) . "</td>
                                       <td>" . $val['date'] . " - " . formatTime($val['time']) . "</td>
                                       <td>kes " . sum($val['id'], 'first') . "</td>
                                       <td>kes " . sum($val['id'], 'second') . "</td>
