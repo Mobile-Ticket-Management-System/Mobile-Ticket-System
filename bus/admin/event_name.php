@@ -1,6 +1,6 @@
 <?php
 if (!isset($file_access)) die("Direct File Access Denied");
-$source = 'route';
+$source = 'event_name';
 $me = "?page=$source"
 ?>
 
@@ -13,11 +13,11 @@ $me = "?page=$source"
                     <div class="card card-success">
                         <div class="card-header">
                             <h3 class="card-title">
-                                All Routes</h3>
+                                All Events</h3>
                             <div class='float-right'>
                                 <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
                                     data-target="#add">
-                                    Add New Route &#128645;
+                                    Add New Event &#128645;
                                 </button></div>
                         </div>
 
@@ -36,7 +36,7 @@ $me = "?page=$source"
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $row = $conn->query("SELECT * FROM route");
+                                    $row = $conn->query("SELECT * FROM eventname");
                                     if ($row->num_rows < 1) echo "No Records Yet";
                                     $sn = 0;
                                     while ($fetch = $row->fetch_assoc()) {
@@ -131,7 +131,7 @@ $me = "?page=$source"
     <div class="modal-dialog modal-lg">
         <div class="modal-content" align="center">
             <div class="modal-header">
-                <h4 class="modal-title">Add New Route &#128649;
+                <h4 class="modal-title">Add New Event &#128649;
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -180,10 +180,10 @@ if (isset($_POST['submit'])) {
     } else {
         $conn = connect();
 
-        $ins = $conn->prepare("INSERT INTO route (start,stop) VALUES (?,?)");
+        $ins = $conn->prepare("INSERT INTO eventname (start,stop) VALUES (?,?)");
         $ins->bind_param("ss", $start, $stop);
         $ins->execute();
-        alert("Route Added!");
+        alert("Event has been Added!");
         load($_SERVER['PHP_SELF'] . "$me");
     }
 }
@@ -196,22 +196,22 @@ if (isset($_POST['edit'])) {
         alert("Fill Form Properly!");
     } else {
         $conn = connect();
-        $ins = $conn->prepare("UPDATE route SET start = ?, stop = ? WHERE id = ?");
+        $ins = $conn->prepare("UPDATE eventname SET start = ?, stop = ? WHERE id = ?");
         $ins->bind_param("ssi", $start, $stop, $id);
         $ins->execute();
-        alert("Route Modified!");
+        alert("Event Modified!");
         load($_SERVER['PHP_SELF'] . "$me");
     }
 }
 
 if (isset($_POST['del_train'])) {
     $con = connect();
-    $conn = $con->query("DELETE FROM route WHERE id = '" . $_POST['del_train'] . "'");
+    $conn = $con->query("DELETE FROM eventname WHERE id = '" . $_POST['del_train'] . "'");
     if ($con->affected_rows < 1) {
-        alert("Route Could Not Be Deleted. This Route Has Been Tied To Another Data!");
+        alert("Event Could Not Be Deleted. This Event Has Been Tied To Another Data!");
         load($_SERVER['PHP_SELF'] . "$me");
     } else {
-        alert("Route Deleted!");
+        alert("Event has been Deleted Successfully!");
         load($_SERVER['PHP_SELF'] . "$me");
     }
 }

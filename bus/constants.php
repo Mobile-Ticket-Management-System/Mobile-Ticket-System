@@ -622,7 +622,7 @@ table th{font-weight:italic}
 <tr><th><b>Email:</b></th><td>$email</td></tr>
 <tr><th><b>Contact:</b></th><td>$phone</td></tr>
 <tr><td colspan="2" style="text-align:center"><b>Trip Detail</b></td></tr>
-<tr><th><b>Route:</b></th><td>$eventname</td></tr>
+<tr><th><b>Event:</b></th><td>$eventname</td></tr>
 <tr><th><b>Bus:</b></th><td>$Bus</td></tr>
 <tr><th><b>Class:</b></th><td>$class Class</td></tr>
 <tr><th><b>Seat Number:</b></th><td>$seat</td></tr>

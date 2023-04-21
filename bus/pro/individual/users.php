@@ -45,7 +45,7 @@ if (isset($_GET['status'], $_GET['id'])) {
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $row = connect()->query("SELECT * FROM passenger ORDER BY id DESC");
+                                        $row = connect()->query("SELECT * FROM customers ORDER BY id DESC");
                                         if ($row->num_rows < 1) echo "No Records Yet";
                                         $sn = 0;
                                         while ($fetch = $row->fetch_assoc()) {
@@ -125,7 +125,7 @@ if (isset($_GET['status'], $_GET['id'])) {
 
                         </div>
                         <div class="col-sm-6">
-                            Route : <select class="form-control" name="eventname_id" required id="">
+                            Event : <select class="form-control" name="eventname_id" required id="">
                                 <option value="">Select Event by name</option>
                                 <?php
                                 $con = connect()->query("SELECT * FROM eventname");
@@ -210,8 +210,8 @@ if (isset($_GET['status'], $_GET['id'])) {
 
                         </div>
                         <div class="col-sm-6">
-                            Route : <select class="form-control" name="eventname_id" required id="">
-                                <option value="">Select Event by name</option>
+                            Events : <select class="form-control" name="eventname_id" required id="">
+                                <option value="">Select Event</option>
                                 <?php
                                 $con = connect()->query("SELECT * FROM eventname");
                                 while ($row = $con->fetch_assoc()) {
@@ -285,7 +285,7 @@ if (isset($_GET['status'], $_GET['id'])) {
 <?php
 
 if (isset($_POST['submit'])) {
-    $route_id = $_POST['eventname_id'];
+    $eventname_id = $_POST['eventname_id'];
     $train_id = $_POST['train_id'];
     $first_fee = $_POST['first_fee'];
     $second_fee = $_POST['second_fee'];
@@ -308,7 +308,7 @@ if (isset($_POST['submit'])) {
 
 
 if (isset($_POST['submit2'])) {
-    $route_id = $_POST['eventname_id'];
+    $eventname_id = $_POST['eventname_id'];
     $train_id = $_POST['train_id'];
     $first_fee = $_POST['first_fee'];
     $second_fee = $_POST['second_fee'];
@@ -352,7 +352,7 @@ if (isset($_POST['submit2'])) {
 
 
 if (isset($_POST['edit'])) {
-    $route_id = $_POST['eventname_id'];
+    $eventname_id = $_POST['eventname_id'];
     $train_id = $_POST['train_id'];
     $first_fee = $_POST['first_fee'];
     $second_fee = $_POST['second_fee'];

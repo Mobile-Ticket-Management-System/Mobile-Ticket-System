@@ -21,7 +21,7 @@ $source = 'payment';
                         <table id='example1' class="table table-striped table-bordered table-hover table-valign-middle">
                             <thead>
                                 <tr>
-                                    <th>Event Name</th>
+                                    <th>Events</th>
                                     <th>Date</th>
                                     <th>First Class</th>
                                     <th>Second Class</th>

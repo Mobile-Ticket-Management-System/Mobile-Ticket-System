@@ -1,6 +1,6 @@
 <?php
 if (!isset($file_access)) die("Direct File Access Denied");
-$source = 'route';
+$source = 'event_name';
 $me = "?page=$source"
 ?>
 
@@ -199,7 +199,7 @@ if (isset($_POST['edit'])) {
         $ins = $conn->prepare("UPDATE eventname SET start = ?, stop = ? WHERE id = ?");
         $ins->bind_param("ssi", $start, $stop, $id);
         $ins->execute();
-        alert("Eventname Modified!");
+        alert("Event has been Modified!");
         load($_SERVER['PHP_SELF'] . "$me");
     }
 }
@@ -208,10 +208,10 @@ if (isset($_POST['del_train'])) {
     $con = connect();
     $conn = $con->query("DELETE FROM eventname WHERE id = '" . $_POST['del_train'] . "'");
     if ($con->affected_rows < 1) {
-        alert("Route Could Not Be Deleted. This event Has Been Tied To Another Data!");
+        alert("Event Could Not Be Deleted. This event Has Been Tied To Another Data!");
         load($_SERVER['PHP_SELF'] . "$me");
     } else {
-        alert("Route Deleted!");
+        alert("Event Deleted!");
         load($_SERVER['PHP_SELF'] . "$me");
     }
 }

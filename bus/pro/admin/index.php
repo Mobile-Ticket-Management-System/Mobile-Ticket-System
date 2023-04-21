@@ -96,10 +96,10 @@ if (!isset($file_access)) die("Direct File Access Denied");
     <div class="row">
         <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box bg-primary">
-                <span class="info-box-icon"><i class="fa fa-route"></i></span>
+                <span class="info-box-icon"><i class="fa fa-calendar"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Event names</span>
+                    <span class="info-box-text">Events</span>
                     <span class="info-box-number"><?php echo connect()->query("SELECT * FROM eventname")->num_rows ?></span>
 
                     <div class="progress">

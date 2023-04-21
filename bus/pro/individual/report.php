@@ -27,7 +27,7 @@ $me = "?page=$source"
                                         <tr>
                                             <th>#</th>
                                             <th>Bus</th>
-                                            <th>Event Name</th>
+                                            <th>Event</th>
                                             <th>Date/Time</th>
                                             <th>Actions</th>
                                         </tr>
@@ -100,8 +100,8 @@ $me = "?page=$source"
 
                         </div>
                         <div class="col-sm-6">
-                            Route : <select class="form-control" name="route_id" required id="">
-                                <option value="">Select event by name</option>
+                            Event : <select class="form-control" name="route_id" required id="">
+                                <option value="">Select event</option>
                                 <?php
                                 $con = connect()->query("SELECT * FROM eventname");
                                 while ($row = $con->fetch_assoc()) {
@@ -185,8 +185,8 @@ $me = "?page=$source"
 
                         </div>
                         <div class="col-sm-6">
-                            Route : <select class="form-control" name="eventname_id" required id="">
-                                <option value="">Select Event by name</option>
+                            Event : <select class="form-control" name="eventname_id" required id="">
+                                <option value="">Select Event</option>
                                 <?php
                                 $con = connect()->query("SELECT * FROM eventname");
                                 while ($row = $con->fetch_assoc()) {

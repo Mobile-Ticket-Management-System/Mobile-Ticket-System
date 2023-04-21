@@ -33,7 +33,7 @@ $me = "?page=$source"
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $row = $conn->query("SELECT * FROM route");
+                                    $row = $conn->query("SELECT * FROM eventname");
                                     if ($row->num_rows < 1) echo "No Events Yet";
                                     $sn = 0;
                                     while ($fetch = $row->fetch_assoc()) {
@@ -170,7 +170,7 @@ if (isset($_POST['submit'])) {
     } else {
         $conn = connect();
 
-        $ins = $conn->prepare("INSERT INTO route (start,stop) VALUES (?,?)");
+        $ins = $conn->prepare("INSERT INTO eventname (start,stop) VALUES (?,?)");
         $ins->bind_param("ss", $start, $stop);
         $ins->execute();
         alert("Event Added!");
@@ -186,7 +186,7 @@ if (isset($_POST['edit'])) {
         alert("Fill Form Properly!");
     } else {
         $conn = connect();
-        $ins = $conn->prepare("UPDATE route SET start = ?, stop = ? WHERE id = ?");
+        $ins = $conn->prepare("UPDATE eventname SET start = ?, stop = ? WHERE id = ?");
         $ins->bind_param("ssi", $start, $stop, $id);
         $ins->execute();
         alert("Event Modified!");
@@ -196,7 +196,7 @@ if (isset($_POST['edit'])) {
 
 if (isset($_POST['del_train'])) {
     $con = connect();
-    $conn = $con->query("DELETE FROM route WHERE id = '" . $_POST['del_train'] . "'");
+    $conn = $con->query("DELETE FROM eventname WHERE id = '" . $_POST['del_train'] . "'");
     if ($con->affected_rows < 1) {
         alert("Event Could Not Be Deleted. This Event Has Been Tied To Another Data!");
         load($_SERVER['PHP_SELF'] . "$me");

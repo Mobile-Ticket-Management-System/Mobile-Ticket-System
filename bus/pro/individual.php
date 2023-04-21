@@ -118,12 +118,12 @@ if (isset($_GET['error'])) {
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="individual.php?page=route" class="nav-link      <?php
+                            <a href="individual.php?page=event_name" class="nav-link      <?php
                                                                                 echo (@$_GET['page'] == 'event_name') ? 'active' : '';
                                                                                 ?>">
-                                <i class="nav-icon fas fa-route"></i>
+                                <i class="nav-icon fas fa-calendar"></i>
                                 <p>
-                                    Event names
+                                    Events
                                 </p>
                             </a>
                         </li>

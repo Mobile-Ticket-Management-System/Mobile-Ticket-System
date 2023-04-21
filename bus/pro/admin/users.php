@@ -125,7 +125,7 @@ if (isset($_GET['status'], $_GET['id'])) {
 
                         </div>
                         <div class="col-sm-6">
-                            Event Name : <select class="form-control" name="eventname_id" required id="">
+                            Events : <select class="form-control" name="eventname_id" required id="">
                                 <option value="">Select Event name</option>
                                 <?php
                                 $con = connect()->query("SELECT * FROM eventname");
@@ -210,7 +210,7 @@ if (isset($_GET['status'], $_GET['id'])) {
 
                         </div>
                         <div class="col-sm-6">
-                            Event Name : <select class="form-control" name="eventname_id" required id="">
+                            Events : <select class="form-control" name="eventname_id" required id="">
                                 <option value="">Select eventname</option>
                                 <?php
                                 $con = connect()->query("SELECT * FROM eventname");

@@ -9,9 +9,9 @@ if (!isset($file_access)) die("Direct File Access Denied");
                 <span class="info-box-icon"><i class="fa fa-users"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Passengers</span>
+                    <span class="info-box-text">Customers</span>
                     <span class="info-box-number"><?php
-                                                    echo $reg =  $conn->query("SELECT * FROM passenger")->num_rows;
+                                                    echo $reg =  $conn->query("SELECT * FROM customers")->num_rows;
                                                     ?></span>
 
                     <div class="progress">
@@ -96,11 +96,11 @@ if (!isset($file_access)) die("Direct File Access Denied");
     <div class="row">
         <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box bg-primary">
-                <span class="info-box-icon"><i class="fa fa-route"></i></span>
+                <span class="info-box-icon"><i class="fa fa-calendar"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Routes</span>
-                    <span class="info-box-number"><?php echo connect()->query("SELECT * FROM route")->num_rows ?></span>
+                    <span class="info-box-text">Events</span>
+                    <span class="info-box-number"><?php echo connect()->query("SELECT * FROM eventname")->num_rows ?></span>
 
                     <div class="progress">
                         <div class="progress-bar" style="width: 50%"></div>
