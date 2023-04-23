@@ -33,10 +33,10 @@ $me = "?page=$source";
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Bus</th>
+                                        <th>Organizer</th>
                                         <th>Event name</th>
-                                        <th>F.C Fee</th>
-                                        <th>S.C Fee</th>
+                                        <th>VIP Fee</th>
+                                        <th>Regular Fee</th>
                                         <th>Total Bookings</th>
                                         <th>Date/Time</th>
                                         <th>Actions</th>
@@ -101,7 +101,7 @@ $me = "?page=$source";
 
                                                         <p>Bus : <select class="form-control" name="bus_id" required
                                                                 id="">
-                                                                <option value="">Select BUS</option>
+                                                                <option value="">Select Organizer</option>
                                                                 <?php
                                                                     $cons = connect()->query("SELECT * FROM bus");
                                                                     while ($t = $cons->fetch_assoc()) {
@@ -123,12 +123,12 @@ $me = "?page=$source";
                                                             </select>
                                                         </p>
                                                         <p>
-                                                            First Class Charge : <input class="form-control"
+                                                            VIP Class Charge : <input class="form-control"
                                                                 type="number" min="1"value="  min="1"<?php echo $fetch['first_fee'] ?>"
                                                                 name="first_fee" required id="">
                                                         </p>
                                                         <p>
-                                                            Second Class Charge : <input class="form-control"
+                                                            Regular Class Charge : <input class="form-control"
                                                                 type="number" min="1" value=" min="1" <?php echo $fetch['second_fee'] ?>"
                                                                 name="second_fee" required id="">
                                                         </p>
@@ -194,7 +194,7 @@ $me = "?page=$source";
                     <div class="row">
                         <div class="col-sm-6">
                             Bus : <select class="form-control" name="bus_id" required id="">
-                                <option value="">Select Bus</option>
+                                <option value="">Select Organizer</option>
                                 <?php
                                 $con = connect()->query("SELECT * FROM bus");
                                 while ($row = $con->fetch_assoc()) {
@@ -218,12 +218,12 @@ $me = "?page=$source";
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            First Class Charge : <input class="form-control" type="number" min="1"name="first_fee" required
+                            VIP Class Charge : <input class="form-control" type="number" min="1"name="first_fee" required
                                 id="">
                         </div>
                         <div class="col-sm-6">
 
-                            Second Class Charge : <input class="form-control" type="number" min="1" name="second_fee" required
+                            Regular Class Charge : <input class="form-control" type="number" min="1" name="second_fee" required
                                 id="">
                         </div>
                     </div>
@@ -278,8 +278,8 @@ $me = "?page=$source";
                 <form action="" method="post">
                     <div class="row">
                         <div class="col-sm-6">
-                            Bus : <select class="form-control" name="bus_id" required id="">
-                                <option value="">Select Bus</option>
+                            Organizer : <select class="form-control" name="bus_id" required id="">
+                                <option value="">Select Organizer</option>
                                 <?php
                                 $con = connect()->query("SELECT * FROM bus");
                                 while ($row = $con->fetch_assoc()) {
@@ -303,11 +303,11 @@ $me = "?page=$source";
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            First Class Charge : <input class="form-control" type="number" min="1" name="first_fee" required>
+                            VIP Class Charge : <input class="form-control" type="number" min="1" name="first_fee" required>
                         </div>
                         <div class="col-sm-6">
 
-                            Second Class Charge : <input class="form-control" type="number" min="1" name="second_fee" required>
+                            Regular Class Charge : <input class="form-control" type="number" min="1" name="second_fee" required>
                         </div>
                     </div>
                     <div class="row">

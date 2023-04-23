@@ -13,11 +13,11 @@ $me = "?page=$source";
                     <div class="card card-success">
                         <div class="card-header">
                             <h3 class="card-title">
-                                All Buses</h3>
+                                All Organizers</h3>
                             <div class='float-right'>
                                 <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
                                     data-target="#add">
-                                    Add New Bus &#128645;
+                                    Add New Organizers &#128645;
                                 </button></div>
                         </div>
 
@@ -29,9 +29,9 @@ $me = "?page=$source";
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Bus Name</th>
-                                        <th>First Class Seat</th>
-                                        <th>Second Class Seat</th>
+                                        <th>Organizer Name</th>
+                                        <th>VIP Class Seat</th>
+                                        <th>Regular Class Seat</th>
                                         <th style="width: 30%;">Action</th>
                                     </tr>
                                 </thead>
@@ -136,7 +136,7 @@ $me = "?page=$source";
     <div class="modal-dialog modal-lg">
         <div class="modal-content" align="center">
             <div class="modal-header">
-                <h4 class="modal-title">Add New Bus &#128646;
+                <h4 class="modal-title">Add New Organizer &#128646;
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -147,15 +147,15 @@ $me = "?page=$source";
 
                     <table class="table table-bordered">
                         <tr>
-                            <th>Bus Name</th>
+                            <th>Organizer Name</th>
                             <td><input type="text" class="form-control" name="name" required minlength="3" id=""></td>
                         </tr>
                         <tr>
-                            <th>First Class Capacity</th>
+                            <th>VIP Class Capacity</th>
                             <td><input type="number" min='0' class="form-control" name="first_seat" required id=""></td>
                         </tr>
                         <tr>
-                            <th>Second Class Capacity</th>
+                            <th>Regular Class Capacity</th>
                             <td><input type="number" min='0' class="form-control" name="second_seat" required id="">
                             </td>
                         </tr>

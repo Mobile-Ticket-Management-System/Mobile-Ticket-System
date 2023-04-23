@@ -134,7 +134,7 @@ if (isset($_GET['error'])) {
                                                                                 ?>">
                                 <i class="nav-icon fas fa-bus"></i>
                                 <p>
-                                    Buses 
+                                    Organizers
                                 </p>
                             </a>
                         </li>

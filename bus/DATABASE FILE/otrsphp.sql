@@ -103,16 +103,16 @@ CREATE TABLE `bus` (
 --
 
 INSERT INTO `bus` (`id`, `name`, `first_seat`, `second_seat`) VALUES
-(1, 'EGERTON BEBA', 30, 45),
-(2, 'EGERTON CLASSIC', 30, 45),
-(3, 'EGERTON SUPER', 30, 45),
-(7, 'EGERTON OKOA', 30, 45),
-(8, 'EGERTON SHUFFLE', 30, 40),
-(9, 'BEBA COACH', 20, 50),
-(10, 'SUPER COACH', 30, 45),
-(11, 'CLASSIC COACH', 30, 40),
-(12, 'SHUFFLE COACH', 25, 60),
-(13, 'OKOA COACH', 30, 50);
+(1, 'AMAPIANO TOURS', 30, 45),
+(2, 'MYSTICAL CLASSIC', 30, 45),
+(3, 'ASHLEYS EVENTS', 30, 45),
+(7, 'COMRADE FLAVOUR', 30, 45),
+(8, 'WARIDI EVENTS', 30, 40),
+(9, 'GLORY MUSICS', 20, 50),
+(10, 'ZARI DENS', 30, 45),
+(11, 'MOTIFF DON', 30, 40),
+(12, 'BADMAN TING', 25, 60),
+(13, 'GOSPEL HUB', 30, 50);
 
 -- --------------------------------------------------------
 
@@ -266,22 +266,22 @@ CREATE TABLE `route` (
 --
 
 INSERT INTO `route` (`id`, `start`, `stop`) VALUES
-(3, 'EGERTON', 'NJORO'),
-(4, 'EGERTON', 'NAKURU'),
-(5, 'EGERTON', 'NAIROBI'),
-(6, 'EGERTON', 'MOMBASA'),
-(7, 'EGERTON', 'MOLO'),
-(8, 'EGERTON', 'ELDORET'),
-(9, 'NAKURU', 'NAIROBI'),
-(10, 'NAKURU', 'ELDORET'),
-(11, 'NAIROBI', 'NAKURU'),
-(12, 'NJORO', 'EGERTON'),
-(13, 'NAKURU', 'NJORO'),
-(14, 'EGERTON', 'NAIVASHA'),
-(15, 'ELDORET', 'NAKURU'),
-(16, 'EGERTON', 'THIKA'),
-(17, 'EGERTON', 'GILGIL'),
-(18, 'NJORO', 'MOLO');
+(3, '8:00 am', '10:00 pm'),
+(4, '8:00 am', '10:00 pm'),
+(5, '8:00 am', '10:00 pm'),
+(6, '8:00 am', '10:00 pm'),
+(7, '8:00 am', '10:00 pm'),
+(8, '8:00 am', '10:00 pm'),
+(9, '8:00 am', '10:00 pm'),
+(10, '8:00 am', '10:00 pm'),
+(11, '8:00 am', '10:00 pm'),
+(12, '8:00 am', '10:00 pm'),
+(13, '8:00 am', '10:00 pm'),
+(14, '8:00 am', '10:00 pm'),
+(15, '8:00 am', '10:00 pm'),
+(16, '8:00 am', '10:00 pm'),
+(17, '8:00 am', '10:00 pm'),
+(18, '8:00 am', '10:00 pm');
 
 
 -- --------------------------------------------------------

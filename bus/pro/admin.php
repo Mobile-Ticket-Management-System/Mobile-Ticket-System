@@ -133,7 +133,7 @@ $fullname =  "System Administrator";
                                                                                 ?>">
                                 <i class="nav-icon fas fa-bus"></i>
                                 <p>
-                                    Buses 
+                                    Organizers 
                                 </p>
                             </a>
                         </li>
