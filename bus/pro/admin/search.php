@@ -1,6 +1,6 @@
 <?php
 if (!isset($file_access)) die("Direct File Access Denied");
-$source = 'train';
+$source = 'venue';
 $me = "?page=$source";
 ?>
 
@@ -47,8 +47,7 @@ $me = "?page=$source";
         <tr><th>Amount Paid</th><td>$ $row[amount]</td></tr>
         <tr><th>Payment Date</th><td>$row[payment_date]</td></tr>
         <tr><th>Payment Ref</th><td>$row[ref]</td></tr>
-        <tr><th>Route</th><td>" . getEventnameFromSchedule($row['schedule_id']) . "</td></tr>
-        <tr><th>Train</th><td>" . getTrainName($row['train_id']) . "</td></tr>
+        <tr><th>Event</th><td>" . getEventnameFromSchedule($row['schedule_id']) . "</td></tr>
         </table>";
                                 }
                             }

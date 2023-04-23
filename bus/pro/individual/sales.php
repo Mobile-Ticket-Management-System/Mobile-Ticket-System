@@ -36,7 +36,6 @@ $source = 'payment';
                                 while ($val = $pay->fetch_assoc()) {
                                     $id = $val['id'];
                                     $array = getTotalBookByType($id);
-                                    // echo (($array['first'] - $array['first_booked'])), " Seat(s) Available for First Class" . "<hr/>" . ($array['second'] - $array['second_booked']) . " Seat(s) Available for Second Class";
                                     $sn++;
                                     echo "<tr>
                                       <td>" . getEventName($val['eventname_id']) . "</td>

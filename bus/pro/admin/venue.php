@@ -1,7 +1,7 @@
 <?php
 if (!isset($file_access)) die("Direct File Access Denied");
-$source = 'route';
-$me = "?page=$source"
+$source = 'venue';
+$me = "?page=$source";
 ?>
 
 <div class="content">
@@ -13,11 +13,11 @@ $me = "?page=$source"
                     <div class="card card-success">
                         <div class="card-header">
                             <h3 class="card-title">
-                                All Routes</h3>
+                                All Organizers</h3>
                             <div class='float-right'>
                                 <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
                                     data-target="#add">
-                                    Add New Route &#128645;
+                                    Add New Organizer &#128645;
                                 </button></div>
                         </div>
 
@@ -29,14 +29,15 @@ $me = "?page=$source"
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>From</th>
-                                        <th>To</th>
-                                        <th>Action</th>
+                                        <th>Organizer Name</th>
+                                        <th>First Class Seat</th>
+                                        <th>Second Class Seat</th>
+                                        <th style="width: 30%;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $row = $conn->query("SELECT * FROM route");
+                                    $row = $conn->query("SELECT * FROM venue");
                                     if ($row->num_rows < 1) echo "No Records Yet";
                                     $sn = 0;
                                     while ($fetch = $row->fetch_assoc()) {
@@ -45,10 +46,9 @@ $me = "?page=$source"
 
                                     <tr>
                                         <td><?php echo ++$sn; ?></td>
-                                        <td><?php echo $fetch['start']; ?></td>
-                                        <td><?php echo $fetch['stop'];
-
-                                                $fullname = $fetch['start'] . " to " . $fetch['stop']; ?></td>
+                                        <td><?php echo $fullname = $fetch['name']; ?></td>
+                                        <td><?php echo $fetch['first_seat']; ?></td>
+                                        <td><?php echo $fetch['second_seat']; ?></td>
                                         <td>
                                             <form method="POST">
                                                 <button type="button" class="btn btn-primary" data-toggle="modal"
@@ -56,7 +56,7 @@ $me = "?page=$source"
                                                     Edit
                                                 </button> -
 
-                                                <input type="hidden" class="form-control" name="del_train"
+                                                <input type="hidden" class="form-control" name="del_venue"
                                                     value="<?php echo $id ?>" required id="">
                                                 <button type="submit"
                                                     onclick="return confirm('Are you sure about this?')"
@@ -71,10 +71,7 @@ $me = "?page=$source"
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title">Editing <?php echo $fullname;
-
-
-                                                                                        ?> &#128642;</h4>
+                                                    <h4 class="modal-title">Editing <?php echo $fullname;?></h4>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
@@ -84,17 +81,22 @@ $me = "?page=$source"
                                                     <form action="" method="post">
                                                         <input type="hidden" class="form-control" name="id"
                                                             value="<?php echo $id ?>" required id="">
-                                                        <p>From : <input type="text" class="form-control"
-                                                                value="<?php echo $fetch['start'] ?>" name="start"
-                                                                required id="">
+                                                        <p>	Organizer Name : <input type="strings" class="form-control"
+                                                                name="name" value="<?php echo $fetch['name'] ?>"
+                                                                required minlength="3" id=""></p>
+                                                        <p>First Class Capacity : <input type="number" min='0'
+                                                                class="form-control"
+                                                                value="<?php echo $fetch['first_seat'] ?>"
+                                                                name="first_seat" required id="">
                                                         </p>
-                                                        <p> To : <input type="text" class="form-control"
-                                                                value="<?php echo $fetch['stop'] ?>" name="stop"
-                                                                required id="">
+                                                        <p> Class Capacity : <input type="number" min='0'
+                                                                class="form-control"
+                                                                value="<?php echo $fetch['second_seat'] ?>"
+                                                                name="second_seat" required id="">
                                                         </p>
                                                         <p>
 
-                                                            <input class="btn btn-info" type="submit" value="Edit Route"
+                                                            <input class="btn btn-info" type="submit" value="Edit Organizer"
                                                                 name='edit'>
                                                         </p>
                                                     </form>
@@ -131,7 +133,7 @@ $me = "?page=$source"
     <div class="modal-dialog modal-lg">
         <div class="modal-content" align="center">
             <div class="modal-header">
-                <h4 class="modal-title">Add New Route &#128649;
+                <h4 class="modal-title">Add New Organizer &#128646;
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -141,20 +143,23 @@ $me = "?page=$source"
                 <form action="" method="post">
 
                     <table class="table table-bordered">
-
                         <tr>
-                            <th>From</th>
-                            <td><input type="text" class="form-control" name="start" required id=""></td>
+                            <th>Organizer Name</th>
+                            <td><input type="text" class="form-control" name="name" required minlength="3" id=""></td>
                         </tr>
                         <tr>
-                            <th>To</th>
-                            <td><input type="text" class="form-control" name="stop" required id="">
+                            <th>First Class Capacity</th>
+                            <td><input type="number" min='0' class="form-control" name="first_seat" required id=""></td>
+                        </tr>
+                        <tr>
+                            <th>Second Class Capacity</th>
+                            <td><input type="number" min='0' class="form-control" name="second_seat" required id="">
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
 
-                                <input class="btn btn-info" type="submit" value="Add Route" name='submit'>
+                                <input class="btn btn-info" type="submit" value="Add Organizer" name='submit'>
                             </td>
                         </tr>
                     </table>
@@ -173,45 +178,58 @@ $me = "?page=$source"
 <?php
 
 if (isset($_POST['submit'])) {
-    $start = $_POST['start'];
-    $stop = $_POST['stop'];
-    if (!isset($stop, $start)) {
+    $name = $_POST['name'];
+    $first_seat = $_POST['first_seat'];
+    $second_seat = $_POST['second_seat'];
+    if (!isset($name, $first_seat, $second_seat)) {
         alert("Fill Form Properly!");
     } else {
         $conn = connect();
-
-        $ins = $conn->prepare("INSERT INTO route (start,stop) VALUES (?,?)");
-        $ins->bind_param("ss", $start, $stop);
-        $ins->execute();
-        alert("Route Added!");
-        load($_SERVER['PHP_SELF'] . "$me");
+        //Check if venue exists
+        $check = $conn->query("SELECT * FROM venue WHERE name = '$name' ")->num_rows;
+        if ($check) {
+            alert("Venue exists");
+        } else {
+            $ins = $conn->prepare("INSERT INTO venue (name, first_seat, second_seat) VALUES (?,?,?)");
+            $ins->bind_param("sss", $name, $first_seat, $second_seat);
+            $ins->execute();
+            alert("Venue Added!");
+            load($_SERVER['PHP_SELF'] . "$me");
+        }
     }
 }
 
 if (isset($_POST['edit'])) {
-    $start = $_POST['start'];
-    $stop = $_POST['stop'];
+    $name = $_POST['name'];
+    $first_seat = $_POST['first_seat'];
+    $second_seat = $_POST['second_seat'];
     $id = $_POST['id'];
-    if (!isset($start, $stop)) {
+    if (!isset($name, $first_seat, $second_seat)) {
         alert("Fill Form Properly!");
     } else {
         $conn = connect();
-        $ins = $conn->prepare("UPDATE route SET start = ?, stop = ? WHERE id = ?");
-        $ins->bind_param("ssi", $start, $stop, $id);
-        $ins->execute();
-        alert("Route Modified!");
-        load($_SERVER['PHP_SELF'] . "$me");
+        //Check if venue exists
+        $check = $conn->query("SELECT * FROM venue WHERE name = '$name' ")->num_rows;
+        if ($check == 2) {
+            alert("Venue name exists");
+        } else {
+            $ins = $conn->prepare("UPDATE venue SET name = ?, first_seat = ?, second_seat = ? WHERE id = ?");
+            $ins->bind_param("sssi", $name, $first_seat, $second_seat, $id);
+            $ins->execute();
+            alert("Venue Modified!");
+            load($_SERVER['PHP_SELF'] . "$me");
+        }
     }
 }
 
-if (isset($_POST['del_train'])) {
+if (isset($_POST['del_venue'])) {
     $con = connect();
-    $conn = $con->query("DELETE FROM route WHERE id = '" . $_POST['del_train'] . "'");
+    $conn = $con->query("DELETE FROM venue WHERE id = '" . $_POST['del_venue'] . "'");
     if ($con->affected_rows < 1) {
-        alert("Route Could Not Be Deleted. This Route Has Been Tied To Another Data!");
+        alert("Venue Could Not Be Deleted. This Venue Been Tied To Another Data!");
         load($_SERVER['PHP_SELF'] . "$me");
     } else {
-        alert("Route Deleted!");
+        alert("Venue Deleted!");
         load($_SERVER['PHP_SELF'] . "$me");
     }
 }

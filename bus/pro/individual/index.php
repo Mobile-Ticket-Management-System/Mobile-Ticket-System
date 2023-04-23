@@ -6,12 +6,12 @@ if (!isset($file_access)) die("Direct File Access Denied");
     
         <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box bg-info">
-                <span class="info-box-icon"><i class="fa fa-bus"></i></span>
+                <span class="info-box-icon"><i class="fas fa-users"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Buses</span>
+                    <span class="info-box-text">Organizers</span>
                     <span class="info-box-number"><?php
-                                                    echo $comp = $conn->query("SELECT * FROM bus")->num_rows;
+                                                    echo $comp = $conn->query("SELECT * FROM organizer")->num_rows;
                                                     ?></span>
 
                     <div class="progress">

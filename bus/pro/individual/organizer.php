@@ -1,6 +1,6 @@
 <?php
 if (!isset($file_access)) die("Direct File Access Denied");
-$source = 'bus';
+$source = 'organizer';
 $me = "?page=$source";
 ?>
 
@@ -15,10 +15,7 @@ $me = "?page=$source";
                             <h3 class="card-title">
                                 All Organizers</h3>
                             <div class='float-right'>
-                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                                    data-target="#add">
-                                    Add New Organizers &#128645;
-                                </button></div>
+                                </div>
                         </div>
 
                         <div class="card-body">
@@ -29,15 +26,15 @@ $me = "?page=$source";
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Organizer Name</th>
-                                        <th>VIP Class Seat</th>
-                                        <th>Regular Class Seat</th>
-                                        <th style="width: 30%;">Action</th>
+                                        <th>Organizer</th>
+                                        <th>First Class Seat</th>
+                                        <th>Second Class Seat</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $row = $conn->query("SELECT * FROM bus");
+                                    $row = $conn->query("SELECT * FROM organizer");
                                     if ($row->num_rows < 1) echo "No Records Yet";
                                     $sn = 0;
                                     while ($fetch = $row->fetch_assoc()) {
@@ -50,20 +47,7 @@ $me = "?page=$source";
                                         <td><?php echo $fetch['first_seat']; ?></td>
                                         <td><?php echo $fetch['second_seat']; ?></td>
                                         <td>
-                                            <form method="POST">
-                                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#edit<?php echo $id ?>">
-                                                    Edit
-                                                </button> -
-
-                                                <input type="hidden" class="form-control" name="del_bus"
-                                                    value="<?php echo $id ?>" required id="">
-                                                <button type="submit"
-                                                    onclick="return confirm('Are you sure about this?')"
-                                                    class="btn btn-danger">
-                                                    Delete
-                                                </button>
-                                            </form>
+                                           
                                         </td>
                                     </tr>
 
@@ -84,7 +68,7 @@ $me = "?page=$source";
                                                     <form action="" method="post">
                                                         <input type="hidden" class="form-control" name="id"
                                                             value="<?php echo $id ?>" required id="">
-                                                        <p>	Bus Name : <input type="strings" class="form-control"
+                                                        <p>Organizer : <input type="strings" class="form-control"
                                                                 name="name" value="<?php echo $fetch['name'] ?>"
                                                                 required minlength="3" id=""></p>
                                                         <p>First Class Capacity : <input type="number" min='0'
@@ -99,7 +83,7 @@ $me = "?page=$source";
                                                         </p>
                                                         <p>
 
-                                                            <input class="btn btn-info" type="submit" value="Edit Bus"
+                                                            <input class="btn btn-info" type="submit" value="Edit Organizer"
                                                                 name='edit'>
                                                         </p>
                                                     </form>
@@ -132,52 +116,7 @@ $me = "?page=$source";
 </section>
 </div>
 
-<div class="modal fade" id="add">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content" align="center">
-            <div class="modal-header">
-                <h4 class="modal-title">Add New Organizer &#128646;
-                </h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="" method="post">
-
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>Organizer Name</th>
-                            <td><input type="text" class="form-control" name="name" required minlength="3" id=""></td>
-                        </tr>
-                        <tr>
-                            <th>VIP Class Capacity</th>
-                            <td><input type="number" min='0' class="form-control" name="first_seat" required id=""></td>
-                        </tr>
-                        <tr>
-                            <th>Regular Class Capacity</th>
-                            <td><input type="number" min='0' class="form-control" name="second_seat" required id="">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-
-                                <input class="btn btn-info" type="submit" value="Add Bus" name='submit'>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-
-
-
-            </div>
-
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-
+<d
 <?php
 
 if (isset($_POST['submit'])) {
@@ -188,15 +127,15 @@ if (isset($_POST['submit'])) {
         alert("Fill Form Properly!");
     } else {
         $conn = connect();
-        //Check if bus exists
-        $check = $conn->query("SELECT * FROM bus WHERE name = '$name' ")->num_rows;
+        //Check if organizer exists
+        $check = $conn->query("SELECT * FROM organizer WHERE name = '$name' ")->num_rows;
         if ($check) {
-            alert("Bus exists");
+            alert("Organizer already exist");
         } else {
-            $ins = $conn->prepare("INSERT INTO bus (name, first_seat, second_seat) VALUES (?,?,?)");
+            $ins = $conn->prepare("INSERT INTO organizer (name, first_seat, second_seat) VALUES (?,?,?)");
             $ins->bind_param("sss", $name, $first_seat, $second_seat);
             $ins->execute();
-            alert("Bus Added!");
+            alert("Organizer Added!");
             load($_SERVER['PHP_SELF'] . "$me");
         }
     }
@@ -211,28 +150,28 @@ if (isset($_POST['edit'])) {
         alert("Fill Form Properly!");
     } else {
         $conn = connect();
-        //Check if bus exists
-        $check = $conn->query("SELECT * FROM bus WHERE name = '$name' ")->num_rows;
+        //Check if organizer exists
+        $check = $conn->query("SELECT * FROM organizer WHERE name = '$name' ")->num_rows;
         if ($check == 2) {
-            alert("Bus name exists");
+            alert("Organizer name exists");
         } else {
-            $ins = $conn->prepare("UPDATE bus SET name = ?, first_seat = ?, second_seat = ? WHERE id = ?");
+            $ins = $conn->prepare("UPDATE organizer SET name = ?, first_seat = ?, second_seat = ? WHERE id = ?");
             $ins->bind_param("sssi", $name, $first_seat, $second_seat, $id);
             $ins->execute();
-            alert("Bus Modified!");
+            alert("Organizer Modified!");
             load($_SERVER['PHP_SELF'] . "$me");
         }
     }
 }
 
-if (isset($_POST['del_bus'])) {
+if (isset($_POST['del_organizer'])) {
     $con = connect();
-    $conn = $con->query("DELETE FROM bus WHERE id = '" . $_POST['del_bus'] . "'");
+    $conn = $con->query("DELETE FROM organizer WHERE id = '" . $_POST['del_organizer'] . "'");
     if ($con->affected_rows < 1) {
-        alert("Bus Could Not Be Deleted. This Bus Been Tied To Another Data!");
+        alert("Organizer Could Not Be Deleted. This organizer is Tied To Another Data!");
         load($_SERVER['PHP_SELF'] . "$me");
     } else {
-        alert("Bus Deleted!");
+        alert("Organizer has been Deleted!");
         load($_SERVER['PHP_SELF'] . "$me");
     }
 }

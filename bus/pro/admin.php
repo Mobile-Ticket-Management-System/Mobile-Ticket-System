@@ -128,10 +128,10 @@ $fullname =  "System Administrator";
                         </li>
                         </li>
                         <li class="nav-item">
-                            <a href="admin.php?page=bus" class="nav-link      <?php
-                                                                                echo (@$_GET['page'] == 'bus') ? 'active' : '';
+                            <a href="admin.php?page=organizer" class="nav-link      <?php
+                                                                                echo (@$_GET['page'] == 'organizer') ? 'active' : '';
                                                                                 ?>">
-                                <i class="nav-icon fas fa-bus"></i>
+                                <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     Organizers 
                                 </p>
@@ -218,8 +218,8 @@ $fullname =  "System Administrator";
                 include 'admin/dynamic_schedule.php';
             elseif ($_GET['page'] == 'report')
                 include 'admin/report.php';
-            elseif ($_GET['page'] == 'bus')
-                include 'admin/bus.php';
+            elseif ($_GET['page'] == 'organizer')
+                include 'admin/organizer.php';
             elseif ($_GET['page'] == 'users')
                 include 'admin/users.php';
             elseif ($_GET['page'] == 'event_name')

@@ -129,10 +129,10 @@ if (isset($_GET['error'])) {
                         </li>
                         </li>
                         <li class="nav-item">
-                            <a href="individual.php?page=bus" class="nav-link      <?php
-                                                                                echo (@$_GET['page'] == 'bus') ? 'active' : '';
+                            <a href="individual.php?page=organizer" class="nav-link      <?php
+                                                                                echo (@$_GET['page'] == 'organizer') ? 'active' : '';
                                                                                 ?>">
-                                <i class="nav-icon fas fa-bus"></i>
+                                <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Organizers
                                 </p>
@@ -196,8 +196,8 @@ if (isset($_GET['error'])) {
                 include 'individual/dynamic_schedule.php';
 				  elseif ($_GET['page'] == 'event_name')
                 include 'individual/event_name.php';
-				elseif ($_GET['page'] == 'bus')
-                include 'individual/bus.php';
+				elseif ($_GET['page'] == 'organizer')
+                include 'individual/organizer.php';
 				elseif ($_GET['page'] == 'seat')
                 include 'individual/seat.php';
 				

@@ -19,7 +19,7 @@ date_default_timezone_set("Africa/Lagos");
 $date = date('D, d-M-Y h:i:s A');;
 $date_small = date('d-M-Y');;
 //INSERT YOUR OWN PAYSTACK API KEYS
-$paystack = "#YOUR_API_KEY"; //Do not change this! Redirect URL http://localhost/bus/pro/verify.php
+$paystack = "#YOUR_API_KEY"; //Do not change this! Redirect URL http://localhost/events/pro/verify.php
 if (!function_exists('connect')) {
 
     function connect()
@@ -275,7 +275,7 @@ function sendMail($to, $subject, $msg)
 function genSeat($id, $type, $number)
 {
     $conn = connect();
-    $type_seat = $conn->query("SELECT bus.first_seat as first, bus.second_seat as second FROM schedule INNER JOIN bus ON bus.id = schedule.bus_id WHERE schedule.id = '$id'")->fetch_assoc();
+    $type_seat = $conn->query("SELECT organizer.first_seat as first, organizer.second_seat as second FROM schedule INNER JOIN organizer ON organizer.id = schedule.organizer_id WHERE schedule.id = '$id'")->fetch_assoc();
     $me = $type_seat[$type];
     $query = $conn->query("SELECT SUM(no) AS no FROM booked WHERE schedule_id = '$id' AND class = '$type'")->fetch_assoc();
     $no = $query['no'];
@@ -449,7 +449,7 @@ function getTotalBookByType($id)
     $no2 = $con2['no'];
     $num = $no == null ? 0 :  $con['no'];
     $num2 = $no2 == null ? 0 :  $con2['no'];
-    $qu = connect()->query("SELECT bus.first_seat as first, bus.second_seat as second FROM schedule INNER JOIN bus ON bus.id = schedule.bus_id WHERE schedule.id = '$id'")->fetch_assoc();
+    $qu = connect()->query("SELECT organizer.first_seat as first, organizer.second_seat as second FROM schedule INNER JOIN organizer ON organizer.id = schedule.organizer_id WHERE schedule.id = '$id'")->fetch_assoc();
     $first = $qu['first'];
     $second = $qu['second'];
     $first = intval($first);
@@ -477,9 +477,9 @@ function isScheduleActive($id)
     return false;
 }
 
-function getBusName($id)
+function getOrganizerName($id)
 {
-    $val = connect()->query("SELECT name FROM bus WHERE id = '$id'")->fetch_assoc();
+    $val = connect()->query("SELECT name FROM organizer WHERE id = '$id'")->fetch_assoc();
     return $val['name'];
 }
 function alert($msg)
@@ -498,7 +498,7 @@ function printClearance($id)
     ob_start();
     $con = connect();
     $me = $_SESSION['user_id'];
-    $getCount = (connect()->query("SELECT schedule.id as schedule_id, customers.name as fullname, customers.email as email, customers.phone as phone, customers.loc as loc, payment.amount as amount, payment.ref as ref, payment.date as payment_date, schedule.bus_id as bus_id, booked.code as code, booked.no as no, booked.class as class, booked.seat as seat, schedule.date as date, schedule.time as time FROM booked INNER JOIN schedule on booked.schedule_id = schedule.id INNER JOIN payment ON payment.id = booked.payment_id INNER JOIN customers ON customers.id = booked.user_id WHERE booked.id = '$id'"));
+    $getCount = (connect()->query("SELECT schedule.id as schedule_id, customers.name as fullname, customers.email as email, customers.phone as phone, customers.loc as loc, payment.amount as amount, payment.ref as ref, payment.date as payment_date, schedule.venue_id as venue_id, booked.code as code, booked.no as no, booked.class as class, booked.seat as seat, schedule.date as date, schedule.time as time FROM booked INNER JOIN schedule on booked.schedule_id = schedule.id INNER JOIN payment ON payment.id = booked.payment_id INNER JOIN customers ON customers.id = booked.user_id WHERE booked.id = '$id'"));
     if ($getCount->num_rows != 1) die("Denied");
     $row = $getCount->fetch_assoc();
     $customers_name = substr($fullname = ($row['fullname']), 0, 15);
@@ -516,7 +516,7 @@ function printClearance($id)
     $barcodeOutput = generateQR($id, $barcode);
     $loc = $row['loc'];
     $seat = $row['seat'];
-    $bus = getBusName($row['bus_id']);
+    $organizer = getOrganizerName($row['organizer_id']);
     $class = $row['class'];
     $payment_date = $row['payment_date'];
     $amount = $row['amount'];
@@ -570,7 +570,7 @@ function printClearance($id)
     $pdf->SetAuthor($fullname);
     $pdf->SetTitle($fullname . " Ticket");
     $pdf->SetSubject(SITE_NAME);
-    $pdf->SetKeywords("Bus Booking System, Rail, Rails, Railway, Booking, Project, System, Website, Portal ");
+    $pdf->SetKeywords("Event Ticket Booking System, Rail, Rails, Railway, Booking, Project, System, Website, Portal ");
 
 
     // set default monospaced font
@@ -615,7 +615,7 @@ function printClearance($id)
 <style>
 table th{font-weight:italic}
 </style>
-<h1 style="text-align:center"><img src="images/trainlg.png" width="100" height="100"/><br/>EGERTON TICKET RESERVATION SYSTEM<br/> Bus TICKET</h1> <div style="text-align:right; font-family:courier;font-weight:bold"><font size="+6">Ticket N<u>o</u>: $uniqueCode </font></div>
+<h1 style="text-align:center"><img src="images/trainlg.png" width="100" height="100"/><br/>Event TICKET RESERVATION SYSTEM<br/> Event TICKET</h1> <div style="text-align:right; font-family:courier;font-weight:bold"><font size="+6">Ticket N<u>o</u>: $uniqueCode </font></div>
 <table width="100%" border="1">
 <tr><th colspan="2" style="text-align:center"><b>Personal Data</b></th></tr>
 <tr><th><b>Full Name:</b></th><td>$fullname</td></tr>
@@ -623,7 +623,7 @@ table th{font-weight:italic}
 <tr><th><b>Contact:</b></th><td>$phone</td></tr>
 <tr><td colspan="2" style="text-align:center"><b>Trip Detail</b></td></tr>
 <tr><th><b>Event:</b></th><td>$eventname</td></tr>
-<tr><th><b>Bus:</b></th><td>$Bus</td></tr>
+<tr><th><b>Organizer:</b></th><td>$organizer</td></tr>
 <tr><th><b>Class:</b></th><td>$class Class</td></tr>
 <tr><th><b>Seat Number:</b></th><td>$seat</td></tr>
 <tr><th><b>Date:</b></th><td>$date</td></tr>
@@ -731,7 +731,7 @@ function printReport($id)
 {
     ob_start();
     $con = connect();
-    $getCount = (connect()->query("SELECT schedule.date as date, schedule.time as time, schedule.bus_id as bus, schedule.route_id as route, booked.seat as seat, passenger.name as fullname, booked.code as code, booked.class as class FROM booked INNER JOIN schedule ON schedule.id = booked.schedule_id INNER JOIN passenger ON passenger.id = booked.user_id WHERE booked.schedule_id = '$id' ORDER BY class "));
+    $getCount = (connect()->query("SELECT schedule.date as date, schedule.time as time, schedule.organizer_id as organizer, schedule.eventname_id as eventname, booked.seat as seat, customers.name as fullname, booked.code as code, booked.class as class FROM booked INNER JOIN schedule ON schedule.id = booked.schedule_id INNER JOIN customers ON customers.id = booked.user_id WHERE booked.schedule_id = '$id' ORDER BY class "));
 
     $output = "<style>
     .a {
@@ -772,13 +772,13 @@ function printReport($id)
     $sn = 0;
     $schedule = getEventnameFromSchedule($id);
     if ($getCount->num_rows < 1) {
-        echo "<script>alert('No passenger yet for this schedule!');window.location='admin.php?page=report'</script>";
+        echo "<script>alert('No Customer yet for this schedule!');window.location='admin.php?page=report'</script>";
         exit;
     }
     while ($row = $getCount->fetch_assoc()) {
         $date = $row['date'];
         $time = $row['time'];
-        $bus = getBusName($row['bus']);
+        $bus = getOrganizerName($row['bus']);
         $eventname = getEventnameFromSchedule($id);
         $time = formatTime($time);
         $sn++;
@@ -788,7 +788,7 @@ function printReport($id)
     $end = '</table>';
     $result = $start . $output . $end;
     // die($result);
-    $file_name = preg_replace('/[^a-z0-9]+/', '-', strtolower('bus_booking')) . ".pdf";
+    $file_name = preg_replace('/[^a-z0-9]+/', '-', strtolower('event_booking')) . ".pdf";
     require_once 'PDF/tcpdf_config_alt.php';
 
     // Include the main TCPDF library (search the library on the following directories).

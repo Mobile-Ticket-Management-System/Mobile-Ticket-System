@@ -1,6 +1,6 @@
 <?php
 if (!isset($file_access)) die("Direct File Access Denied");
-$source = 'route';
+$source = 'event_name';
 $me = "?page=$source"
 ?>
 
@@ -194,9 +194,9 @@ if (isset($_POST['edit'])) {
     }
 }
 
-if (isset($_POST['del_train'])) {
+if (isset($_POST['del_venue'])) {
     $con = connect();
-    $conn = $con->query("DELETE FROM eventname WHERE id = '" . $_POST['del_train'] . "'");
+    $conn = $con->query("DELETE FROM eventname WHERE id = '" . $_POST['del_venue'] . "'");
     if ($con->affected_rows < 1) {
         alert("Event Could Not Be Deleted. This Event Has Been Tied To Another Data!");
         load($_SERVER['PHP_SELF'] . "$me");

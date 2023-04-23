@@ -5,10 +5,6 @@ require_once '../constants.php';
 // require_once 'helper.php';
 // require_once 'mail_template.php';
 
-// $message_text = "<p> Thank you for joining the contest. Sitback while we update you on events and processes involved. </p> 
-//   <p>In order to login, use your email and your first name as password. Once you are logged in, you are advised to change your password. <a href='https://netrepeneurs.com/login/'>Login Here</a></p>
-//   <p>Regards, Netrepeneurs team.</p>
-// ";
 
 if (isset($_GET['reference'])) {
   $email = $_SESSION['email'];

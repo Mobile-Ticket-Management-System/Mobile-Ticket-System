@@ -25,7 +25,7 @@ $me = "?page=$source";
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Bus</th>
+                                        <th>Organizer</th>
                                         <th>Events</th>
                                         <th>F.C Fee</th>
                                         <th>S.C Fee</th>
@@ -43,7 +43,7 @@ $me = "?page=$source";
                                     while ($fetch = $row->fetch_assoc()) {
                                         $id = $fetch['id']; ?><tr>
                                         <td><?php echo ++$sn; ?></td>
-                                        <td><?php echo getBusName($fetch['bus_id']); ?></td>
+                                        <td><?php echo getOrganizerName($fetch['organizer_id']); ?></td>
                                         <td><?php echo getEventName($fetch['eventname_id']);
                                                 $fullname = " Schedule" ?></td>
                                         <td>kes <?php echo ($fetch['first_fee']); ?></td>
@@ -78,13 +78,13 @@ $me = "?page=$source";
                                                         <input type="hidden" class="form-control" name="id"
                                                             value="<?php echo $id ?>" required id="">
 
-                                                        <p>Bus : <select class="form-control" name="bus_id" required
+                                                        <p>Organizer : <select class="form-control" name="oganizer_id" required
                                                                 id="">
-                                                                <option value="">Select BUS</option>
+                                                                <option value="">Select ORGANIZER</option>
                                                                 <?php
-                                                                    $cons = connect()->query("SELECT * FROM bus");
+                                                                    $cons = connect()->query("SELECT * FROM organizer");
                                                                     while ($t = $cons->fetch_assoc()) {
-                                                                        echo "<option " . ($fetch['bus_id'] == $t['id'] ? 'selected="selected"' : '') . " value='" . $t['id'] . "'>" . $t['name'] . "</option>";
+                                                                        echo "<option " . ($fetch['organizer_id'] == $t['id'] ? 'selected="selected"' : '') . " value='" . $t['id'] . "'>" . $t['name'] . "</option>";
                                                                     }
                                                                     ?>
                                                             </select>
@@ -96,7 +96,7 @@ $me = "?page=$source";
                                                                 <?php
                                                                     $cond = connect()->query("SELECT * FROM eventname");
                                                                     while ($r = $cond->fetch_assoc()) {
-                                                                        echo "<option  " . ($fetch['evetname_id'] == $r['id'] ? 'selected="selected"' : '') . " value='" . $r['id'] . "'>" . getEventName($r['id']) . "</option>";
+                                                                        echo "<option  " . ($fetch['eventname_id'] == $r['id'] ? 'selected="selected"' : '') . " value='" . $r['id'] . "'>" . getEventName($r['id']) . "</option>";
                                                                     }
                                                                     ?>
                                                             </select>
@@ -161,7 +161,7 @@ $me = "?page=$source";
 
 if (isset($_POST['submit'])) {
     $eventname_id = $_POST['eventname_id'];
-    $bus_id = $_POST['bus_id'];
+    $organizer_id = $_POST['organizer_id'];
     $first_fee = $_POST['first_fee'];
     $second_fee = $_POST['second_fee'];
     $date = $_POST['date'];
@@ -169,12 +169,12 @@ if (isset($_POST['submit'])) {
     // die($date);
     // $endDate = date('Y-m-d' ,strtotime( $data['automatic_until'] ));
     $time = $_POST['time'];
-    if (!isset($eventname_id, $bus_id, $first_fee, $second_fee, $date, $time)) {
+    if (!isset($eventname_id, $organizer_id, $first_fee, $second_fee, $date, $time)) {
         alert("Fill Form Properly!");
     } else {
         $conn = connect();
-        $ins = $conn->prepare("INSERT INTO `schedule`(`bus_id`, `eventname_id`, `date`, `time`, `first_fee`, `second_fee`) VALUES (?,?,?,?,?,?)");
-        $ins->bind_param("iissii", $bus_id, $eventname_id, $date, $time, $first_fee, $second_fee);
+        $ins = $conn->prepare("INSERT INTO `schedule`(`organizer_id`, `eventname_id`, `date`, `time`, `first_fee`, `second_fee`) VALUES (?,?,?,?,?,?)");
+        $ins->bind_param("iissii", $organizer_id, $eventname_id, $date, $time, $first_fee, $second_fee);
         $ins->execute();
         alert("Schedule Added!");
         load($_SERVER['PHP_SELF'] . "$me");
@@ -184,7 +184,7 @@ if (isset($_POST['submit'])) {
 
 if (isset($_POST['submit2'])) {
     $eventname_id = $_POST['eventname_id'];
-    $bus_id = $_POST['bus_id'];
+    $organizer_id = $_POST['organizer_id'];
     $first_fee = $_POST['first_fee'];
     $second_fee = $_POST['second_fee'];
     $from_date = $_POST['from_date'];
@@ -192,7 +192,7 @@ if (isset($_POST['submit2'])) {
     $every = $_POST['every'];
 
     $time = $_POST['time'];
-    if (!isset($eventname_id, $bus_id, $first_fee, $second_fee, $date, $time)) {
+    if (!isset($eventname_id, $organizer_id, $first_fee, $second_fee, $date, $time)) {
         alert("Fill Form Properly!");
     } else {
 
@@ -205,16 +205,16 @@ if (isset($_POST['submit2'])) {
         if ($every == 'Day') {
             for ($i = strtotime($startDate); $i <= strtotime($endDate); $i = strtotime('+1 day', $i)) {
                 $date = date('d-m-Y', $i);
-                $ins = $conn->prepare("INSERT INTO `schedule`(`bus_id`, `eventname_id`, `date`, `time`, `first_fee`, `second_fee`) VALUES (?,?,?,?,?,?)");
-                $ins->bind_param("iissii", $bus_id, $eventname_id, $date, $time, $first_fee, $second_fee);
+                $ins = $conn->prepare("INSERT INTO `schedule`(`organizer_id`, `eventname_id`, `date`, `time`, `first_fee`, `second_fee`) VALUES (?,?,?,?,?,?)");
+                $ins->bind_param("iissii", $organizer_id, $eventname_id, $date, $time, $first_fee, $second_fee);
                 $ins->execute();
             }
         } else {
             for ($i = strtotime($every, strtotime($startDate)); $i <= strtotime($endDate); $i = strtotime('+1 week', $i)) {
                 $date = date('d-m-Y', $i);
 
-                $ins = $conn->prepare("INSERT INTO `schedule`(`bus_id`, `eventname_id`, `date`, `time`, `first_fee`, `second_fee`) VALUES (?,?,?,?,?,?)");
-                $ins->bind_param("iissii", $bus_id, $eventname_id, $date, $time, $first_fee, $second_fee);
+                $ins = $conn->prepare("INSERT INTO `schedule`(`organizer_id`, `eventname_id`, `date`, `time`, `first_fee`, `second_fee`) VALUES (?,?,?,?,?,?)");
+                $ins->bind_param("iissii", $organizer_id, $eventname_id, $date, $time, $first_fee, $second_fee);
                 $ins->execute();
             }
         }
@@ -228,19 +228,19 @@ if (isset($_POST['submit2'])) {
 
 if (isset($_POST['edit'])) {
     $eventname_id = $_POST['eventname_id'];
-    $bus_id = $_POST['bus_id'];
+    $organizer_id = $_POST['organizer_id'];
     $first_fee = $_POST['first_fee'];
     $second_fee = $_POST['second_fee'];
     $date = $_POST['date'];
     $date = formatDate($date);
     $time = $_POST['time'];
     $id = $_POST['id'];
-    if (!isset($eventname_id, $bus_id, $first_fee, $second_fee, $date, $time)) {
+    if (!isset($eventname_id, $organizer_id, $first_fee, $second_fee, $date, $time)) {
         alert("Fill Form Properly!");
     } else {
         $conn = connect();
-        $ins = $conn->prepare("UPDATE `schedule` SET `bus_id`=?,`eventname_id`=?,`date`=?,`time`=?,`first_fee`=?,`second_fee`=? WHERE id = ?");
-        $ins->bind_param("iissiii", $bus_id, $eventname_id, $date, $time, $first_fee, $second_fee, $id);
+        $ins = $conn->prepare("UPDATE `schedule` SET `organizer_id`=?,`eventname_id`=?,`date`=?,`time`=?,`first_fee`=?,`second_fee`=? WHERE id = ?");
+        $ins->bind_param("iissiii", $organizer_id, $eventname_id, $date, $time, $first_fee, $second_fee, $id);
         $ins->execute();
         $msg = "Having considered user's satisfactions and every other things, we the management are so sorry to let inform you that there has been a change in the date and time of your event. <hr/> New Date : $date. <br/> New Time : ".formatTime($time)." <hr/> Kindly disregard if the date/time still stays the same.";
         $e = $conn->query("SELECT customers.email FROM customers INNER JOIN booked ON booked.user_id = customers.id WHERE booked.schedule_id = '$id' ");
@@ -252,9 +252,9 @@ if (isset($_POST['edit'])) {
     }
 }
 
-if (isset($_POST['del_bus'])) {
+if (isset($_POST['del_organizer'])) {
     $con = connect();
-    $conn = $con->query("DELETE FROM schedule WHERE id = '" . $_POST['del_bus'] . "'");
+    $conn = $con->query("DELETE FROM schedule WHERE id = '" . $_POST['del_organizer'] . "'");
     if ($con->affected_rows < 1) {
         alert("Schedule Could Not Be Deleted. This Event Has Been Tied To Another Data!");
         load($_SERVER['PHP_SELF'] . "$me");
